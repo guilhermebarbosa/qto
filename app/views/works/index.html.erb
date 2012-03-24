@@ -10,7 +10,40 @@
 	
 	<div class="block_content">
 	
-	  
+	  <%= form_for @search, :html => {:class => "search"} do |f| %>
+      
+      <p>
+			  <%= f.label :name, "Nome" %>
+        <%= f.text_field :name_contains%>
+			</p>
+			<p>
+			  <%= f.label :responsible, "Responsável" %>
+        <%= f.text_field :responsible_contains%>
+			</p>
+			<p>
+			  <%= f.label :company_id, "Empresa" %>
+        <%= f.select :company_id_eq, Company.all.collect { |c| [c.name, c.id] }, {:prompt => "Selecione"} %>
+			</p>
+			<p>
+			  <%= f.label :territorial, "Regional" %>
+        <%= f.text_field :territorial_contains%>
+			</p>
+			<p>
+			  <%= f.label :cost_center, "Centro de Custo" %>
+        <%= f.text_field :cost_center_contains%>
+			</p>
+			<p>
+			  <%= f.label :user, "Obras" %>
+			  <%= f.select :user_id_eq, {"Minhas obras" => current_user.id, "Todas" => ""} %>
+			</p>
+			<p>
+			  <%= f.label :status, "Status" %>
+			  <%= f.select :status_eq, {"Aberto" => "Aberto", "Fechado" => "Fechado", "Selecione" => ""} %>
+			</p>
+      <p class="submit">
+        <%= f.submit "Pesquisar", :class => "submit small" %>
+      </p>
+    <% end %>
 
   </div>		<!-- .block_content ends -->
 
@@ -60,6 +93,13 @@
 				
 				<tbody>
 				  <% @works.each do |work| %>
+				    <% if work.issue_date + 4.months > DateTime.now 
+				      @cor = "green.png"
+				    elsif work.issue_date + 4.months <= DateTime.now && work.issue_date + 5.months > DateTime.now
+				      @cor = "yellow.png"
+				    elsif work.issue_date + 5.months <= DateTime.now
+				      @cor = "red.png"
+				    end %>
           <tr>
             <td style="width:1px"></td>
             <td><%= image_tag(@cor) %></td>
