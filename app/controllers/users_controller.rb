@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 
 class UsersController < ApplicationController
-  #filter_resource_access
+  filter_resource_access
   
   before_filter [:load_roles], :only=>[:new,:edit, :create, :update]
   before_filter [:load_page]
@@ -25,11 +25,11 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    #@user = User.new
   end
   
   def create
-    @user = User.new(params[:user])
+    #@user = User.new(params[:user])
     if @user.save
       flash[:notice] = "Usuário registrado com sucesso!"
       redirect_to @user
