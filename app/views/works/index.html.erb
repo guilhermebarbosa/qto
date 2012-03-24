@@ -20,10 +20,7 @@
 			  <%= f.label :responsible, "Responsável" %>
         <%= f.text_field :responsible_contains%>
 			</p>
-			<p>
-			  <%= f.label :company_id, "Empresa" %>
-        <%= f.select :company_id_eq, Company.all.collect { |c| [c.name, c.id] }, {:prompt => "Selecione"} %>
-			</p>
+			
 			<p>
 			  <%= f.label :territorial, "Regional" %>
         <%= f.text_field :territorial_contains%>
@@ -32,10 +29,7 @@
 			  <%= f.label :cost_center, "Centro de Custo" %>
         <%= f.text_field :cost_center_contains%>
 			</p>
-			<p>
-			  <%= f.label :user, "Obras" %>
-			  <%= f.select :user_id_eq, {"Minhas obras" => current_user.id, "Todas" => ""} %>
-			</p>
+			
 			<p>
 			  <%= f.label :status, "Status" %>
 			  <%= f.select :status_eq, {"Aberto" => "Aberto", "Fechado" => "Fechado", "Selecione" => ""} %>
