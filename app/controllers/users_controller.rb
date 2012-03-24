@@ -2,6 +2,7 @@ require 'will_paginate/array'
 
 class UsersController < ApplicationController
   #filter_resource_access
+
   
   before_filter [:load_roles], :only=>[:new,:edit, :create, :update]
   before_filter [:load_page]
