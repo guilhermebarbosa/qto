@@ -12,31 +12,6 @@
 	
 	  <%= form_for @search, :html => {:class => "search"} do |f| %>
       
-      <p>
-			  <%= f.label :name, "Nome" %>
-        <%= f.text_field :name_contains%>
-			</p>
-			<p>
-			  <%= f.label :responsible, "Responsável" %>
-        <%= f.text_field :responsible_contains%>
-			</p>
-			
-			<p>
-			  <%= f.label :territorial, "Regional" %>
-        <%= f.text_field :territorial_contains%>
-			</p>
-			<p>
-			  <%= f.label :cost_center, "Centro de Custo" %>
-        <%= f.text_field :cost_center_contains%>
-			</p>
-			
-			<p>
-			  <%= f.label :status, "Status" %>
-			  <%= f.select :status_eq, {"Aberto" => "Aberto", "Fechado" => "Fechado", "Selecione" => ""} %>
-			</p>
-      <p class="submit">
-        <%= f.submit "Pesquisar", :class => "submit small" %>
-      </p>
     <% end %>
 
   </div>		<!-- .block_content ends -->
