@@ -1,0 +1,86 @@
+<div class="block">
+
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2>Buscar</h2>
+		
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+	
+	  <%= form_for @search, :html => {:class => "search"} do |f| %>
+      <p>
+			  <%= f.label :name, "Nome" %>
+        <%= f.text_field :name_contains%>
+			</p>
+			<p>
+			  <%= f.label :cnpj, "CNPJ" %>
+        <%= f.text_field :cnpj_contains%>
+			</p>
+			<p class="submit">
+        <%= f.submit "Pesquisar", :class => "submit small" %>
+      </p>
+    <% end %>
+
+  </div>		<!-- .block_content ends -->
+
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+</div>		<!-- .block ends -->
+
+<div class="block">
+
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2><%= @page_plural %></h2>
+		
+		<ul>
+			<li><a href="<%=new_company_path%>">Nova <%= @page %></a></li>
+		</ul>
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+	
+		<form action="" method="post">
+		
+			<table cellpadding="0" cellspacing="0" width="100%" class="sortable">
+			
+				<thead>
+					<tr>
+					  <th style="width:1px"></th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+				</thead>
+				
+				<tbody>
+				  <% @companies.each do |company| %>
+          <tr>
+            <td style="width:1px"></td>
+            <td><%= company.name %></td>
+            <td><%= company.cnpj %></td>
+            <td><%= link_to 'Visualizar', company %></td>
+            <td><%= link_to 'Editar', edit_company_path(company) %></td>
+            <td><%= link_to 'Excluir', company, :confirm => 'Tem certeza que deseja excluir?', :method => :delete %></td>
+          </tr>
+        <% end %>
+				</tbody>
+				
+			</table>
+		
+  		<%= will_paginate @companies, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;" %>
+			
+		</form>
+		
+	</div>		<!-- .block_content ends -->
+	
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+</div>		<!-- .block ends -->

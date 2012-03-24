@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  adress: MyString
+  number: MyString
+  cep: MyString
+  state: 
+  city: 
+  district: MyString
+  adjunct: MyString
+  contact_name: MyString
+  contact_email: MyString
+  contact_telephone: MyString
+  date_initial: 2012-03-08
+  cost_center: MyString
+  territorial: MyString
+  company: MyString
+  cnpj: MyString
+  footage: MyString
+  demolition_type: MyString
+  demolition_km: MyString
+  floor_qtd: 1
+  floor_2_room: 1
+  floor_3_room: 1
+  floot_bathroom: 1
+
+two:
+  name: MyString
+  adress: MyString
+  number: MyString
+  cep: MyString
+  state: 
+  city: 
+  district: MyString
+  adjunct: MyString
+  contact_name: MyString
+  contact_email: MyString
+  contact_telephone: MyString
+  date_initial: 2012-03-08
+  cost_center: MyString
+  territorial: MyString
+  company: MyString
+  cnpj: MyString
+  footage: MyString
+  demolition_type: MyString
+  demolition_km: MyString
+  floor_qtd: 1
+  floor_2_room: 1
+  floor_3_room: 1
+  floot_bathroom: 1

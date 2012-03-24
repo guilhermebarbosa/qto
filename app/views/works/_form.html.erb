@@ -1,0 +1,376 @@
+<div class="block">
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2><%= page %> <%= @page  %></h2>
+		
+	</div>	<!-- .block_head ends -->
+	
+	<div class="block_content">
+		
+		<p class="breadcrumb"><a href="<%= works_url %>"><%= @page_plural %></a> &raquo; <strong><%= page %></strong></p>
+
+		<%= form_for(@work, :html => { :multipart => true })  do |f| %>
+		  <% if @work.errors.any? %>
+		    <div class="message errormsg">
+		      <p>Não foi possível salvar devido aos seguintes erros:</p>
+		
+		      <% @work.errors.full_messages.each do |msg| %>
+		        <p><%= msg %></p>
+		      <% end %>
+		    </div>
+		  <% end %>
+		    <p>
+          <%= f.label :name, "Nome" %><br />
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <%= f.label :address, "Endereço" %><br />
+          <%= f.text_field :address %>
+        </p>
+        <p>
+          <%= f.label :number, "Numero" %><br />
+          <%= f.text_field :number %>
+        </p>
+        <p>
+          <%= f.label :adjunct, "Complemento" %><br />
+          <%= f.text_field :adjunct %>
+        </p>
+        <p>
+          <%= f.label :cep, "Cep" %><br />
+          <%= f.text_field :cep %>
+        </p>
+        <p>
+          <%= f.label :state, "Estado" %><br />
+          <%= f.select :state_id, @states, :prompt => "Selecione", :class => "styled" %>
+        </p>
+        <p>
+          <%= f.label :city_id, "Cidade" %><br />
+          <%= f.select :city_id, @cities, :prompt => "Selecione", :class => "styled" %>
+        </p>
+        <p>
+          <%= f.label :district, "Bairro" %><br />
+          <%= f.text_field :district %>
+        </p>
+        <p>
+          <%= f.label :date_initial, "Data de Início" %><br />
+          <%= f.date_select :date_initial %>
+        </p>
+        <p>
+          <%= f.label :issue_date, "Data de Entrada" %><br />
+          <%= f.date_select :issue_date %>
+        </p>
+        <p>
+          <%= f.label :cost_center, "Centro de Custo" %><br />
+          <%= f.text_field :cost_center %>
+        </p>
+        <p>
+          <%= f.label :territorial, "Regional" %><br />
+          <%= f.text_field :territorial %>
+        </p>
+        <p>
+          <%= f.label :company_id, "Empresa" %><br />
+          <%= f.select :company_id, @companies, :prompt => "Selecione", :class => "styled" %>
+        </p>
+        <p>
+          <%= f.label :footage, "Metragem" %><br />
+          <%= f.text_field :footage %>
+        </p>
+        <p>
+          <%= f.label :responsible, "Responsável" %><br />
+          <%= f.text_field :responsible %>
+        </p>
+        <p>
+          <%= f.label :entry, "Entrada" %><br />
+          <%= f.select :entry, Work::Entry, :prompt => "Selecione", :class => "styled"  %>
+        </p>
+        <p>
+          <%= f.label :status %><br />
+          <%= f.select :status, @status, :class => "styled"  %>
+        </p>
+        <p>
+          <%= f.label :observation, "Obervação" %><br />
+          <%= f.text_area :observation %>
+        </p>
+    
+        <div class="block small left">
+        	<div class="block_head">
+        		<div class="bheadl"></div>
+        		<div class="bheadr"></div>
+              <h2>Contato</h2>  
+            </div>		<!-- .block_head ends -->
+            <div class="block_content">
+              <p>
+                <%= f.label :contact_name, "Nome" %><br />
+                <%= f.text_field :contact_name %>
+              </p>
+              <p>
+                <%= f.label :contact_email, "Email" %><br />
+                <%= f.text_field :contact_email %>
+              </p>
+              <p>
+                <%= f.label :contact_telephone, "Telefone" %><br />
+                <%= f.text_field :contact_telephone %>
+              </p>
+            </div>		<!-- .block_content ends -->
+          	<div class="bendl"></div>
+          	<div class="bendr"></div>
+        </div>		<!-- .block ends -->
+        
+        <div class="block small right">
+        	<div class="block_head">
+        		<div class="bheadl"></div>
+        		<div class="bheadr"></div>
+              <h2>Demolição</h2>  
+            </div>		<!-- .block_head ends -->
+            <div class="block_content">
+              <p>
+                <%= f.check_box "demolition_check" %>
+                <%= f.label :demolition_check, "Demolição?" %>
+              </p>
+              <% if @work.demolition_check == true %>
+                <% @demolition_style = "block" %> 
+              <% else %>
+                <% @demolition_style = "none" %>
+              <% end %>
+              <div class="div_demolition_check" style="display:<%=@demolition_style%>">
+                <p>
+                  <%= f.label :demolition_type, "Tipo" %><br />
+                  <%= f.text_field :demolition_type %>
+                </p>
+                <p>
+                  <%= f.label :demolition_km, "Area" %><br />
+                  <%= f.text_field :demolition_km %>
+                </p>
+              </div>
+            </div>		<!-- .block_content ends -->
+          	<div class="bendl"></div>
+          	<div class="bendr"></div>
+        </div>		<!-- .block ends -->
+        
+        <div class="block small left" style="clear: both">
+        	<div class="block_head">
+        		<div class="bheadl"></div>
+        		<div class="bheadr"></div>
+              <h2>Pavimentos</h2>  
+            </div>		<!-- .block_head ends -->
+            <div class="block_content">
+              <p>
+                <%= f.check_box "floor_check" %>
+                <%= f.label :floor_check, "Pavimento?" %>
+              </p>
+              <% 
+              if @work.floor_check == true
+                @floor_style = "block"
+              else
+                @floor_style = "none"
+              end 
+              %>
+              <div class="div_floor_check" style="display:<%=@floor_style%>">
+                <% if !@work.floor_qtd.blank? and !@work.floor_units.blank? and !@work.floor_bathroom.blank? %>
+                  <% @floor_qtd_total = @work.floor_qtd * @work.floor_units * @work.floor_bathroom %>
+                <% end %>
+                <p>
+                  <%= f.label :floor_qtd, "Quantidade de Pavimentos" %><br />
+                  <%= f.number_field :floor_qtd %>
+                </p>
+                <p>
+                  <%= f.label :floor_units, "Quantidade de Unidades" %><br />
+                  <%= f.number_field :floor_units %>
+                </p>
+                <p>
+                  <%= f.label :floor_bathroom, "Banheiros" %><br />
+                  <%= f.number_field :floor_bathroom %>
+                </p>
+                <p>
+                  <%= f.label :floor_qtd_total, "Quantidade Total:" %>
+                  <spam id="floor_qtd_total"><%= @floor_qtd_total %></spam>
+                </p>
+              </div>
+            </div>		<!-- .block_content ends -->
+          	<div class="bendl"></div>
+          	<div class="bendr"></div>
+        </div>		<!-- .block ends -->
+        
+        <div class="block small right">
+        	<div class="block_head">
+        		<div class="bheadl"></div>
+        		<div class="bheadr"></div>
+              <h2>Casa</h2>  
+            </div>		<!-- .block_head ends -->
+            <div class="block_content">
+              <p>
+                <%= f.check_box "home_check" %>
+                <%= f.label :home_check, "Casa?" %>
+              </p>
+              <% if @work.home_check == true %>
+                <% @home_style = "block" %> 
+              <% else %>
+                <% @home_style = "none" %>
+              <% end %>
+              <div class="div_home_check" style="display:<%=@home_style%>">
+                <% if !@work.home_club.blank? and !@work.home_ordinance.blank? and !@work.home_support_ordinance.blank? %>
+                  <% @home_qtd_total = @work.home_club + @work.home_ordinance + @work.home_support_ordinance %>
+                <% end %>
+                <p>
+                  <%= f.label :home_club, "Clube" %><br />
+                  <%= f.number_field :home_club %>
+                </p>
+                <p>
+                  <%= f.label :home_ordinance, "Portaria" %><br />
+                  <%= f.number_field :home_ordinance %>
+                </p>
+                <p>
+                  <%= f.label :home_support_ordinance, "Suporte a Portaria" %><br />
+                  <%= f.number_field :home_support_ordinance %>
+                </p>
+                <p>
+                  <%= f.label :home_qtd_total, "Quantidade Total:" %>
+                  <spam id="home_qtd_total"><%= @home_qtd_total %></spam>
+                </p>
+              </div>
+            </div>		<!-- .block_content ends -->
+          	<div class="bendl"></div>
+          	<div class="bendr"></div>
+        </div>		<!-- .block ends -->
+        
+        <div class="block">
+        	<div class="block_head">
+        		<div class="bheadl"></div>
+        		<div class="bheadr"></div>
+              <h2>Documentos </h2>  
+            </div>		<!-- .block_head ends -->
+            <div class="block_content">    		    
+              
+              <%= f.fields_for :work_documents do |document| %>
+                  <% if document.object.new_record? %>
+                    <p class="fileupload"> 
+                 		  <%= document.label :patent, "Alvará" %><br>
+                 		  <%= document.file_field :patent, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :enrollment, "Matrícula do Imóvel" %><br>
+                 		  <%= document.file_field :enrollment, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :cei, "CEI" %><br>
+                 		  <%= document.file_field :cei, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :gifp, "Gifp" %><br>
+                 		  <%= document.file_field :gifp, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :invoice, "Nota Fiscal" %><br>
+                 		  <%= document.file_field :invoice, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :inss, "Guia de ISS/INSS" %><br>
+                 		  <%= document.file_field :inss, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :cnd, "CND" %><br>
+                 		  <%= document.file_field :cnd, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :dwell, "Habite-se" %><br>
+                 		  <%= document.file_field :dwell, :class =>"file" %> 
+                 		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :social_contract, "Contrato Social" %><br>
+                 		  <%= document.file_field :social_contract, :class =>"file" %> 
+                 		</p>
+                  <% end %>
+                <% end %>
+                
+                <% if !@work.id.blank? %>  
+                  <p>
+                    <table border="0">
+                      <tr>
+                        <th>Excluir?</th>
+                        <th>Data</th>
+                        <th>Alvará</th>
+                        <th>Matrícula do Imóvel</th>
+                        <th>CEI</th>
+                        <th>Gifp</th>
+                        <th>Nota Fiscal</th>
+                        <th>Guia de ISS/INSS</th>
+                        <th>CND</th>
+                        <th>Habite-se</th>
+                        <th>Contrato Social</th>
+                      </tr>
+                      <%= f.fields_for :work_documents do |document| %>
+                          <% if !document.object.new_record? %>
+                            <tr>
+                              <td><%= document.check_box :_destroy %></td>
+                              <td><%= I18n.l document.object.updated_at %></td>
+                              <td>
+                              <% if !document.object.patent_file_name.blank? %>
+                                <%= link_to "Alvará", document.object.patent.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.enrollment_file_name.blank? %>
+                                <%= link_to "Matrícula do Imóvel", document.object.enrollment.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.cei_file_name.blank? %>
+                                <%= link_to "CEI", document.object.cei.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.gifp_file_name.blank? %>
+                                <%= link_to "Gifp", document.object.gifp.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.invoice_file_name.blank? %>
+                                <%= link_to "Nota Fiscal", document.object.invoice.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.inss_file_name.blank? %>
+                                <%= link_to "Guia de ISS/INSS", document.object.inss.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.cnd_file_name.blank? %>
+                                <%= link_to "CND", document.object.cnd.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.dwell_file_name.blank? %>
+                                <%= link_to "Habite-se", document.object.dwell.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.social_contract_file_name.blank? %>
+                                <%= document.object.social_contract.check_box :_destroy %>
+                                <%= link_to "Contrato Social", document.object.social_contract.url %>
+                              <% end %>
+                              </td>
+                            </tr>
+                          <% end %>
+                        <% end %>
+                    </table>
+                  </p>
+                <% end %>
+            </div>		<!-- .block_content ends -->
+          	<div class="bendl"></div>
+          	<div class="bendr"></div>
+        </div>		<!-- .block ends -->
+        
+        <p>
+          <%= f.submit page, :class => "submit small" %>
+        </p>
+        
+		<% end %>
+		
+	</div>		<!-- .block_content ends -->
+	
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+		
+</div>		<!-- .block ends -->

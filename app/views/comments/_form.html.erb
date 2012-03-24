@@ -1,0 +1,79 @@
+<div class="block">
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2><%= page %> Comentario</h2>
+		
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+
+    <%= form_for(@comment, :html => { :multipart => true })  do |f| %>
+      <%= @comment.document %>
+      <%
+      if @comment.document == true
+        @document_style = "block"
+      else
+        @document_style = "none"
+      end 
+      %>
+  
+      <%= f.hidden_field :work_id %>
+      <p>
+        <%= f.label :document, "Descrição" %>
+        <%= f.text_area "description" %>
+      </p>
+      <p>
+        <%= f.check_box "document" %>
+        <%= f.label :document, "Inserir Documento?" %>
+      </p>
+      <div class="div_document_check" style="display:<%= @document_style %>">
+        <p class="fileupload"> 
+       		<%= f.label :patent, "Alvará" %><br>
+     		  <%= f.file_field :patent, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :enrollment, "Matrícula do Imóvel" %><br>
+     		  <%= f.file_field :enrollment, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :cei, "CEI" %><br>
+     		  <%= f.file_field :cei, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :gifp, "Gifp" %><br>
+     		  <%= f.file_field :gifp, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :invoice, "Nota Fiscal" %><br>
+     		  <%= f.file_field :invoice, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :inss, "Guia de ISS/INSS" %><br>
+     		  <%= f.file_field :inss, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :cnd, "CND" %><br>
+     		  <%= f.file_field :cnd, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :dwell, "Habite-se" %><br>
+     		  <%= f.file_field :dwell, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :social_contract, "Contrato Social" %><br>
+     		  <%= f.file_field :social_contract, :class =>"file" %> 
+     		</p>
+      </div>
+
+      <p>
+        <%= f.submit page, :class => "submit small" %>
+      </p>
+    <% end %>
+  </div>		<!-- .block_content ends -->
+
+  <div class="bendl"></div>
+  <div class="bendr"></div>
+
+</div>		<!-- .block ends -->

@@ -1,0 +1,42 @@
+<div class="block">
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2>Visualizar <%= @page %></h2>
+		
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+
+    <p>
+      <b>Nome:</b>
+      <%= @user.name %>
+    </p>
+
+    <p>
+      <b>Usuário:</b>
+      <%= @user.username %>
+    </p>
+    
+    <p>
+      <b>Email:</b>
+      <%= @user.email %>
+    </p>
+
+    <p>
+      <b>Tipo:</b>
+      <%= @user.roles[0].name %>
+    </p>
+    
+    <p style="clear: both">
+      <a style="padding-right: 10px" class="submit small" href="<%=edit_user_url(@user)%>">Editar</a>
+      | <a class="submit small" href="<%=users_url%>">Voltar</a>
+    </p>
+
+  </div>		<!-- .block_content ends -->
+
+  <div class="bendl"></div>
+  <div class="bendr"></div>
+
+</div>		<!-- .block ends -->

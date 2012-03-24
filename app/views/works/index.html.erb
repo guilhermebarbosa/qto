@@ -1,0 +1,137 @@
+<div class="block">
+
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2>Buscar</h2>
+		
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+	
+	  <%= form_for @search, :html => {:class => "search"} do |f| %>
+      <p>
+			  <%= f.label :id, "Protocolo" %>
+        <%= f.select :id_eq, Work.all.collect { |c| [c.id, c.id] }, {:prompt => "Selecione"} %>
+			</p>
+      <p>
+			  <%= f.label :name, "Nome" %>
+        <%= f.text_field :name_contains%>
+			</p>
+			<p>
+			  <%= f.label :responsible, "Responsável" %>
+        <%= f.text_field :responsible_contains%>
+			</p>
+			<p>
+			  <%= f.label :company_id, "Empresa" %>
+        <%= f.select :company_id_eq, Company.all.collect { |c| [c.name, c.id] }, {:prompt => "Selecione"} %>
+			</p>
+			<p>
+			  <%= f.label :territorial, "Regional" %>
+        <%= f.text_field :territorial_contains%>
+			</p>
+			<p>
+			  <%= f.label :cost_center, "Centro de Custo" %>
+        <%= f.text_field :cost_center_contains%>
+			</p>
+			<p>
+			  <%= f.label :user, "Obras" %>
+			  <%= f.select :user_id_eq, {"Minhas obras" => current_user.id, "Todas" => ""} %>
+			</p>
+			<p>
+			  <%= f.label :status, "Status" %>
+			  <%= f.select :status_eq, {"Aberto" => "Aberto", "Fechado" => "Fechado", "Selecione" => ""} %>
+			</p>
+      <p class="submit">
+        <%= f.submit "Pesquisar", :class => "submit small" %>
+      </p>
+    <% end %>
+
+  </div>		<!-- .block_content ends -->
+
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+</div>		<!-- .block ends -->
+
+<div class="block">
+
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2><%= @page_plural %></h2>
+		
+		<ul>
+			<li><a href="<%=new_work_path%>">Nova <%= @page %></a></li>
+		</ul>
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+	
+		<form action="" method="post">
+		
+			<table cellpadding="0" cellspacing="0" width="100%" class="sortable">
+			
+				<thead>
+					<tr>
+					  <th style="width:1px"></th>
+            <th>Entrada</th>
+            <th>Protocolo</th>
+            <th>Nome</th>
+            <th>Responsável</th>
+            <th>Centro de Custo</th>
+            <th>Empresa</th>
+            <th>Regional</th>
+            <th>Status</th>
+            <th></th>
+            <% if permitted_to? :edit, :works %>
+              <th></th>
+            <% end %>
+            <% if permitted_to? :destroy, :works %>
+              <th></th>
+            <% end %>
+          </tr>
+				</thead>
+				
+				<tbody>
+				  <% @works.each do |work| %>
+				    <% if work.issue_date + 4.months > DateTime.now 
+				      @cor = "green.png"
+				    elsif work.issue_date + 4.months <= DateTime.now && work.issue_date + 5.months > DateTime.now
+				      @cor = "yellow.png"
+				    elsif work.issue_date + 5.months <= DateTime.now
+				      @cor = "red.png"
+				    end %>
+          <tr>
+            <td style="width:1px"></td>
+            <td><%= image_tag(@cor) %></td>
+            <td><%= work.id %></td>
+            <td><%= work.name %></td>
+            <td><%= work.responsible %></td>
+            <td><%= work.cost_center %></td>
+            <td><%= work.company.name %></td>
+            <td><%= work.territorial %></td>
+            <td><%= work.status %></td>
+            <td><%= link_to 'Visualizar', work %></td>
+            <% if permitted_to? :edit, work %>
+              <td><%= link_to 'Editar', edit_work_path(work) %></td>
+            <% end %>
+            <% if permitted_to? :destroy, work %>
+              <td><%= link_to 'Excluir', work, :confirm => 'Tem certeza que deseja excluir?', :method => :delete %></td>
+            <% end %>
+          </tr>
+        <% end %>
+				</tbody>
+				
+			</table>
+		
+  		<%= will_paginate @works, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;" %>
+			
+		</form>
+		
+	</div>		<!-- .block_content ends -->
+	
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+</div>		<!-- .block ends -->

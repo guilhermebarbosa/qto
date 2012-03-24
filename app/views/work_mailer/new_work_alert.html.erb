@@ -1,0 +1,29 @@
+<p>Nova obra cadastrada.</p>
+
+<p>Para autentica-la, <%= link_to "clique aqui", edit_work_url(@work) %>.</p>
+
+<table border="1" cellpadding="0" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+      <th style="padding:5px">Protocolo</th>
+      <th style="padding:5px">Nome</th>
+      <th style="padding:5px">Responsável</th>
+      <th style="padding:5px">Centro de Custo</th>
+      <th style="padding:5px">Empresa</th>
+      <th style="padding:5px">Regional</th>
+      <th style="padding:5px">Status</th>
+    </tr>
+	</thead>
+	
+	<tbody>
+    <tr>
+      <td style="padding:5px"><%= @work.id %></td>
+      <td style="padding:5px"><%= @work.name %></td>
+      <td style="padding:5px"><%= @work.responsible %></td>
+      <td style="padding:5px"><%= @work.cost_center %></td>
+      <td style="padding:5px"><%= @work.company.name %></td>
+      <td style="padding:5px"><%= @work.territorial %></td>
+      <td style="padding:5px"><%= @work.status %></td>
+    </tr>
+	</tbody>
+</table>

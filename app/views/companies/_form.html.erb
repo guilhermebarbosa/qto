@@ -1,0 +1,48 @@
+<div class="block">
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2><%= page %> <%= @page  %></h2>
+		
+	</div>	<!-- .block_head ends -->
+	
+	<div class="block_content">
+		
+		<p class="breadcrumb"><a href="<%= companies_url %>"><%= @page_plural %></a> &raquo; <strong><%= page %></strong></p>
+
+		<%= form_for(@company, :html => { :multipart => true })  do |f| %>
+		  <% if @company.errors.any? %>
+		    <div class="message errormsg">
+		      <p>Não foi possível salvar devido aos seguintes erros:</p>
+		
+		      <% @company.errors.full_messages.each do |msg| %>
+		        <p><%= msg %></p>
+		      <% end %>
+		    </div>
+		  <% end %>
+		  
+		  <p>
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :cnpj %><br />
+        <%= f.text_field :cnpj %>
+      </p>
+      <p>
+        <%= f.label :address %><br />
+        <%= f.text_field :address %>
+      </p>
+      <p>
+        <%= f.submit page, :class => "submit small" %>
+      </p>
+      
+		<% end %>
+		
+	</div>		<!-- .block_content ends -->
+	
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+		
+</div>		<!-- .block ends -->

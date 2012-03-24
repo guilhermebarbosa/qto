@@ -1,0 +1,500 @@
+<div class="block">
+	<div class="block_head">
+		<div class="bheadl"></div>
+		<div class="bheadr"></div>
+		
+		<h2>Visualizar <%= @page %></h2>
+		
+	</div>		<!-- .block_head ends -->
+	
+	<div class="block_content">
+	
+  <p>
+    <b>Protocolo:</b>
+    <%= @work.id %>
+  </p>
+  
+  <p>
+    <b>Nome:</b>
+    <%= @work.name %>
+  </p>
+
+  <p>
+    <b>Endereço:</b>
+    <%= @work.address %>
+  </p>
+
+  <p>
+    <b>Numero:</b>
+    <%= @work.number %>
+  </p>
+  
+  <p>
+    <b>Complemento:</b>
+    <%= @work.adjunct %>
+  </p>
+
+  <p>
+    <b>CEP:</b>
+    <%= @work.cep %>
+  </p>
+
+  <p>
+    <b>Estado:</b>
+    <%= @work.state.name %>
+  </p>
+
+  <p>
+    <b>Cidade:</b>
+    <%= @work.city.name %>
+  </p>
+
+  <p>
+    <b>Bairro:</b>
+    <%= @work.district %>
+  </p>
+
+  <p>
+    <b>Data de Início:</b>
+    <%= I18n.l @work.date_initial %>
+  </p>
+  
+  <p>
+    <b>Data de Entrada:</b>
+    <%= I18n.l @work.issue_date %>
+  </p>
+
+  <p>
+    <b>Centro de Custo:</b>
+    <%= @work.cost_center %>
+  </p>
+
+  <p>
+    <b>Regional:</b>
+    <%= @work.territorial %>
+  </p>
+
+  <p>
+    <b>Empresa:</b>
+    <%= @work.company.name %>
+  </p>
+  
+  <p>
+    <b>CNPJ:</b>
+    <%= @work.company.cnpj %>
+  </p>
+
+  <p>
+    <b>Metragem:</b>
+    <%= @work.footage %>
+  </p>
+  
+  <p>
+    <b>Responsável:</b>
+    <%= @work.responsible %>
+  </p>
+  
+  <p>
+    <b>Entrada:</b>
+    <%= @work.entry %>
+  </p>
+  
+  <p>
+    <b>Cadastrado por:</b>
+    <%= @work.user.name %>
+  </p>
+  
+  <p>
+    <b>Status:</b>
+    <%= @work.status %>
+  </p>
+  
+  <p>
+    <b>Observação:</b>
+    <%= @work.observation %>
+  </p>
+  
+  <div class="block small left">
+  	<div class="block_head">
+  		<div class="bheadl"></div>
+  		<div class="bheadr"></div>
+
+  		<h2>Contato</h2>
+
+  	</div>		<!-- .block_head ends -->
+
+  	<div class="block_content">
+  
+      <p>
+        <b>Nome:</b>
+        <%= @work.contact_name %>
+      </p>
+
+      <p>
+        <b>Email:</b>
+        <%= @work.contact_email %>
+      </p>
+
+      <p>
+        <b>Telefone:</b>
+        <%= @work.contact_telephone %>
+      </p>
+      
+    </div>		<!-- .block_content ends -->
+
+  	<div class="bendl"></div>
+  	<div class="bendr"></div>
+
+  </div>		<!-- .block ends -->
+  
+  <div class="block small right">
+  	<div class="block_head">
+  		<div class="bheadl"></div>
+  		<div class="bheadr"></div>
+
+  		<h2>Demolição</h2>
+
+  	</div>		<!-- .block_head ends -->
+
+  	<div class="block_content">
+  
+      <% if @work.demolition_check == true %>
+        <p>
+          <b>Tipo:</b>
+          <%= @work.demolition_type %>
+        </p>
+
+        <p>
+          <b>Metragem:</b>
+          <%= @work.demolition_km %>
+        </p>
+      <% else %>  
+        <p>
+          Sem demolição.
+        </p>
+      <% end %>
+      
+    </div>		<!-- .block_content ends -->
+
+  	<div class="bendl"></div>
+  	<div class="bendr"></div>
+
+  </div>		<!-- .block ends -->
+  
+  <div class="block small left" style="clear:both">
+  	<div class="block_head">
+  		<div class="bheadl"></div>
+  		<div class="bheadr"></div>
+
+  		<h2>Pavimentos</h2>
+
+  	</div>		<!-- .block_head ends -->
+
+  	<div class="block_content">
+  	
+  	  <% if @work.floor_check == true %>
+        <p>
+          <b>Quantidade Pavimentos:</b>
+          <%= @work.floor_qtd %>
+        </p>
+
+        <p>
+          <b>Quantidade Unidades:</b>
+          <%= @work.floor_units %>
+        </p>
+
+        <p>
+          <b>Banheiros:</b>
+          <%= @work.floor_bathroom %>
+        </p>
+
+        <p>
+          <b>Quantidade Total:</b>
+          <%= @work.floor_qtd * @work.floor_units * @work.floor_bathroom %>
+        </p>
+      <% else %>  
+        <p>
+          Sem pavimentos.
+        </p>
+      <% end %>
+      
+    </div>		<!-- .block_content ends -->
+
+  	<div class="bendl"></div>
+  	<div class="bendr"></div>
+
+    </div>		<!-- .block ends -->
+    
+    <div class="block small right">
+    	<div class="block_head">
+    		<div class="bheadl"></div>
+    		<div class="bheadr"></div>
+
+    		<h2>Casa</h2>
+
+    	</div>		<!-- .block_head ends -->
+
+    	<div class="block_content">
+
+    	  <% if @work.home_check == true %>
+          <p>
+            <b>Clube:</b>
+            <%= @work.home_club %>
+          </p>
+
+          <p>
+            <b>Suporte a Portaria:</b>
+            <%= @work.home_support_ordinance %>
+          </p>
+          
+          <p>
+            <b>Portaria:</b>
+            <%= @work.home_ordinance %>
+          </p>
+
+          <p>
+            <b>Quantidade Total:</b>
+            <%= @work.home_club + @work.home_support_ordinance + @work.home_ordinance %>
+          </p>
+        <% else %>  
+          <p>
+            Sem casas.
+          </p>
+        <% end %>
+
+      </div>		<!-- .block_content ends -->
+
+  	<div class="bendl"></div>
+  	<div class="bendr"></div>
+
+  </div>		<!-- .block ends -->
+  
+  <div class="block">
+  	<div class="block_head">
+  		<div class="bheadl"></div>
+  		<div class="bheadr"></div>
+
+  		<h2>Documentos</h2>
+
+  	</div>		<!-- .block_head ends -->
+
+  	<div class="block_content">
+      <p>
+        <% if @work.work_documents.empty? %>
+          Nenhum documento encontrado.
+          <% else %>
+          <table border="0">
+            <tr>
+              <th>Data</th>
+              <th>Alvará</th>
+              <th>Matrícula do Imóvel</th>
+              <th>CEI</th>
+              <th>Gifp</th>
+              <th>Nota Fiscal</th>
+              <th>Guia de ISS/INSS</th>
+              <th>CND</th>
+              <th>Habite-se</th>
+              <th>Contrato Social</th>
+            </tr>
+          <% @work.work_documents.each do |document| %>
+              <tr>
+                <td><%= I18n.l document.updated_at %></td>
+                <td>
+                <% if !document.patent_file_name.blank? %>
+                  <%= link_to "Alvará", document.patent.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.enrollment_file_name.blank? %>
+                  <%= link_to "Matrícula do Imóvel", document.enrollment.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.cei_file_name.blank? %>
+                  <%= link_to "CEI", document.cei.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.gifp_file_name.blank? %>
+                  <%= link_to "Gifp", document.gifp.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.invoice_file_name.blank? %>
+                  <%= link_to "Nota Fiscal", document.invoice.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.inss_file_name.blank? %>
+                  <%= link_to "Guia de ISS/INSS", document.inss.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.cnd_file_name.blank? %>
+                  <%= link_to "CND", document.cnd.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.dwell_file_name.blank? %>
+                  <%= link_to "Habite-se", document.dwell.url %>
+                <% end %>
+                </td>
+                <td>
+                <% if !document.social_contract_file_name.blank? %>
+                  <%= link_to "Contrato Social", document.social_contract.url %>
+                <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </table>
+        <% end %>
+      </p>
+    </div>		<!-- .block_content ends -->
+
+  	<div class="bendl"></div>
+  	<div class="bendr"></div>
+
+  </div>		<!-- .block ends -->
+  
+  <div class="block">
+  	<div class="block_head">
+  		<div class="bheadl"></div>
+  		<div class="bheadr"></div>
+
+  		<h2>Comentarios</h2>
+  		
+  		<ul>
+  			<li><a href="<%=new_comment_work_path(@work_id)%>">Novo Comentario</a></li>
+  		</ul>
+
+  	</div>		<!-- .block_head ends -->
+
+  	<div class="block_content">
+  	  <p></p>
+  	  <% if @work.comments.empty? %>
+  	    <p>
+  	      Nenhum comentario encontrado.
+  	    </p>
+  	  <% else %>
+  	    <% @work.comments.each do |comment| %>
+  	    
+      	    <div class="block">
+            	<div class="block_head">
+            		<div class="bheadl"></div>
+            		<div class="bheadr"></div>
+
+            		<h2><%= comment.user.name %></strong>, <%= I18n.l comment.updated_at %></h2>
+
+              </div>		<!-- .block_head ends -->
+	        
+    	        <div class="block_content">
+	        
+    	          <p>
+    	            <b>Descrição:</b>
+    	            <%= comment.description %>
+    	          </p>
+    	          <% if comment.document == true %>
+    	            <b>Documentos:</b>
+  	              <table border="0">
+                    <tr>
+                      <th>Alvará</th>
+                      <th>Matrícula do Imóvel</th>
+                      <th>CEI</th>
+                      <th>Gifp</th>
+                      <th>Nota Fiscal</th>
+                      <th>Guia de ISS/INSS</th>
+                      <th>CND</th>
+                      <th>Habite-se</th>
+                      <th>Contrato Social</th>
+                    </tr>
+                    <tr>
+                      <td>
+                      <% if !comment.patent_file_name.blank? %>
+                        <%= link_to "Alvará", comment.patent.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.enrollment_file_name.blank? %>
+                        <%= link_to "Matrícula do Imóvel", comment.enrollment.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.cei_file_name.blank? %>
+                        <%= link_to "CEI", comment.cei.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.gifp_file_name.blank? %>
+                        <%= link_to "Gifp", comment.gifp.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.invoice_file_name.blank? %>
+                        <%= link_to "Nota Fiscal", comment.invoice.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.inss_file_name.blank? %>
+                        <%= link_to "Guia de ISS/INSS", comment.inss.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.cnd_file_name.blank? %>
+                        <%= link_to "CND", comment.cnd.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.dwell_file_name.blank? %>
+                        <%= link_to "Habite-se", comment.dwell.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.social_contract_file_name.blank? %>
+                        <%= link_to "Contrato Social", comment.social_contract.url %>
+                      <% end %>
+                      </td>
+                    </tr>
+                  </table>
+                
+    	          <% end %>
+  	          
+    	          <p>
+                  <% if permitted_to? :edit, comment %>
+                    <%= link_to "Editar", edit_comment_path(comment) %>
+                  <% end %>
+                  <% if permitted_to? :destroy, comment %>
+                    | <%= link_to 'Excluir', comment, :confirm => 'Tem certeza que deseja excluir?', :method => :delete %>
+                  <% end %>
+                </p>
+          
+              </div>		<!-- .block_content ends -->
+
+              <div class="bendl"></div>
+              <div class="bendr"></div>
+          
+            </div>		<!-- .block ends -->
+        
+    	  <% end %>
+  	  <% end %>
+  	  
+    </div>		<!-- .block_content ends -->
+
+  	<div class="bendl"></div>
+  	<div class="bendr"></div>
+
+  </div>		<!-- .block ends -->
+
+  <p style="clear: both">
+    <% if permitted_to? :edit, @work %>
+      <a style="padding-right: 10px" class="submit small" href="<%=edit_work_url(@work)%>">Editar</a> | 
+    <% end %>
+    <a class="submit small" href="<%=works_url%>">Voltar</a>
+  </p>
+  
+
+	</div>		<!-- .block_content ends -->
+
+	<div class="bendl"></div>
+	<div class="bendr"></div>
+
+</div>		<!-- .block ends -->
