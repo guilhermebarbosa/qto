@@ -14,6 +14,7 @@ class CreateComments < ActiveRecord::Migration
       t.has_attached_file :cnd
       t.has_attached_file :dwell
       t.has_attached_file :social_contract
+      t.has_attached_file :avcb
 
       t.timestamps
     end

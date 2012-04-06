@@ -1,0 +1,8 @@
+<p>O(A) usuário(a) inseriu um novo comentário.</p>
+
+<p>
+  <%= @comment.user.name %>, <%= I18n.l @comment.updated_at %>  <br>
+  Descrição: <%= @comment.description %> <br>
+</p>
+
+<p>Para visualizá-lo, <%= link_to "clique aqui", work_url(@comment.work_id) %>.</p>

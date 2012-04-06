@@ -15,17 +15,21 @@
 			  <%= f.label :id, "Protocolo" %>
         <%= f.select :id_eq, Work.all.collect { |c| [c.id, c.id] }, {:prompt => "Selecione"} %>
 			</p>
-      <p>
-			  <%= f.label :name, "Nome" %>
-        <%= f.text_field :name_contains%>
-			</p>
 			<p>
-			  <%= f.label :responsible, "Responsável" %>
-        <%= f.text_field :responsible_contains%>
+			  <%= f.label :cei, "CEI" %>
+        <%= f.select :cei_eq, Work.all.collect { |c| [c.cei, c.id] }, {:prompt => "Selecione"} %>
 			</p>
 			<p>
 			  <%= f.label :company_id, "Empresa" %>
         <%= f.select :company_id_eq, Company.all.collect { |c| [c.name, c.id] }, {:prompt => "Selecione"} %>
+			</p>
+      <p>
+			  <%= f.label :name, "Obra" %>
+        <%= f.select :name_eq, Work.all.collect { |c| [c.name, c.id] }, {:prompt => "Selecione"} %>
+			</p>
+			<p>
+			  <%= f.label :responsible, "Responsável" %>
+        <%= f.text_field :responsible_contains%>
 			</p>
 			<p>
 			  <%= f.label :territorial, "Regional" %>
@@ -36,13 +40,39 @@
         <%= f.text_field :cost_center_contains%>
 			</p>
 			<p>
-			  <%= f.label :user, "Obras" %>
-			  <%= f.select :user_id_eq, {"Minhas obras" => current_user.id, "Todas" => ""} %>
+			  <%= f.label :user_id, "Obras" %>
+			  <%= f.select :user_id_eq, {"Minhas obras" => current_user.id}, {:prompt => "Selecione"} %>
 			</p>
 			<p>
 			  <%= f.label :status, "Status" %>
 			  <%= f.select :status_eq, {"Selecione" => "", "Aberto" => "Aberto", "Fechado" => "Fechado"} %>
 			</p>
+			<% if current_user.roles[0].name == "Administrador" %>
+			  <p>
+          <%= f.label :dwell, "Habite-se >=" %>
+          <%= f.date_select :dwell_gteq, {:order => [:day, :month, :year], :include_blank => "true", :default => "nil"}, {:class => "data"} %>
+        </p>
+        <p>
+          <%= f.label :dwell, "Habite-se <=" %>
+          <%= f.date_select :dwell_lteq, {:order => [:day, :month, :year], :include_blank => "true", :default => "nil"}, {:class => "data"} %>
+        </p>
+			  <p>
+  			  <%= f.label :status_dwell, "Status Habite-se" %>
+  			  <%= f.select :status_dwell_eq, {"Selecione" => "", "Pendente" => "Pendente", "Entregue" => "Entregue"} %>
+  			</p>
+  			<p style="clear: both">
+          <%= f.label :cnd, "CND >=" %>
+          <%= f.date_select :cnd_gteq, {:order => [:day, :month, :year], :include_blank => "true", :default => "nil"}, {:class => "data"} %>
+        </p>
+        <p>
+          <%= f.label :cnd, "CND <=" %>
+          <%= f.date_select :cnd_lteq, {:order => [:day, :month, :year], :include_blank => "true", :default => "nil"}, {:class => "data"} %>
+        </p>
+  			<p>
+  			  <%= f.label :status_dwell, "Status CND" %>
+  			  <%= f.select :status_cnd_eq, {"Selecione" => "", "Pendente" => "Pendente", "Entregue" => "Entregue"} %>
+  			</p>
+			<% end %>
       <p class="submit">
         <%= f.submit "Pesquisar", :class => "submit small" %>
       </p>
@@ -64,6 +94,7 @@
 		
 		<ul>
 			<li><a href="<%=new_work_path%>">Nova <%= @page %></a></li>
+			<li><%= link_to 'Exportar para excel', works_url(:format => 'xls') %></li>
 		</ul>
 	</div>		<!-- .block_head ends -->
 	
@@ -77,8 +108,9 @@
 					<tr>
 					  <th style="width:1px"></th>
             <th>Entrada</th>
+            <th>CEI</th>
             <th>Protocolo</th>
-            <th>Nome</th>
+            <th>Obra</th>
             <th>Responsável</th>
             <th>Centro de Custo</th>
             <th>Empresa</th>
@@ -106,6 +138,7 @@
           <tr>
             <td style="width:1px"></td>
             <td><%= image_tag(@cor) %></td>
+            <th><%= work.cei %></th>
             <td><%= work.id %></td>
             <td><%= work.name %></td>
             <td><%= work.responsible %></td>

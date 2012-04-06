@@ -1,0 +1,16 @@
+<p>O(A) usuário(a) alterou o comentário.</p>
+
+
+<p>
+  <b>De:</b><br>
+  <%= @last_comment.user.name %>, <%= I18n.l @last_comment.updated_at %>  <br>
+  Descrição: <%= @last_comment.description %> <br>
+</p>
+
+<p>
+  <b>Para:</b><br>
+  <%= @comment.user.name %>, <%= I18n.l @comment.updated_at %>  <br>
+  Descrição: <%= @comment.description %> <br>
+</p>
+
+<p>Para visualizá-lo, <%= link_to "clique aqui", work_url(@comment.work_id) %>.</p>

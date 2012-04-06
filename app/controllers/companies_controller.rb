@@ -2,8 +2,53 @@ require 'will_paginate/array'
 
 class CompaniesController < ApplicationController
   filter_resource_access
+  filter_access_to :import, :upload
   
   before_filter :load_page
+  
+  def import  
+    if notice.blank?
+      @notice = ""
+    else  
+      @notice = notice
+    end
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def upload
+    #file = DataFile.save(params[:upload][:csv])
+
+    @file = params[:upload][:csv].read
+    @x = 0
+
+    FasterCSV.parse(@file).each do |row|
+      if @x == 0
+        @row = row
+        @validate = validate_file()
+        if @validate == false
+          break;
+        end
+      else
+        @company = Company.new
+        @company.name = row[0]
+        @company.address = row[1]
+        @company.cnpj = row[2]
+        @company.save
+      end
+      @x = @x + 1
+    end
+
+    respond_to do |format|
+      if @validate == false
+        format.html { redirect_to(companies_import_path, :notice => 'Encontramos erro(s) na planilha, utilize como modelo a planilha encontrada nessa pagina.') }
+      else
+        format.html { redirect_to(companies_path, :notice => 'Carmodel was successfully created.') }
+      end
+    end 
+  end
   
   # GET /companies
   # GET /companies.json
@@ -83,5 +128,16 @@ class CompaniesController < ApplicationController
     def load_page
       @page = "Empresa"
       @page_plural = "Empresas"
+    end
+    def validate_file
+      if @row[0] != "Empresa"
+        return false
+      end
+      if @row[1] != "Endereço"
+        return false
+      end
+      if @row[2] != "CNPJ"
+        return false
+      end
     end
 end

@@ -1,5 +1,7 @@
 Obras::Application.routes.draw do
-  resources :comments
+  
+  get 'companies/import' => 'companies#import'
+  post 'companies/import' => 'companies#upload'
 
   match "user_sessions/new" => "user_sessions#new", :as => "login"
   match "user_sessions/destroy" => "user_sessions#destroy", :as => "logout"
@@ -7,8 +9,11 @@ Obras::Application.routes.draw do
   get "users/edit_profile/:id" => "users#edit_profile", :as => "edit_profile"
   
   match 'works/update_city_select/:id' => 'works#update_city_select'
+  match 'cron_mail/send_prevision_email' => 'cron_mail#send_prevision_email'
   
   match 'comments/new_comment/:work_id' => 'comments#new_comment', :as => "new_comment_work"
+  
+  resources :comments
   
   resources :user_sessions
 

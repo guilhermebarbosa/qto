@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324175318) do
+ActiveRecord::Schema.define(:version => 20120404151211) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "user_id"
@@ -72,6 +72,10 @@ ActiveRecord::Schema.define(:version => 20120324175318) do
     t.string   "social_contract_content_type"
     t.datetime "social_contract_updated_at"
     t.string   "social_contract_file_name"
+    t.integer  "avcb_file_size"
+    t.string   "avcb_content_type"
+    t.datetime "avcb_updated_at"
+    t.string   "avcb_file_name"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -85,6 +89,16 @@ ActiveRecord::Schema.define(:version => 20120324175318) do
     t.string   "cnpj"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "previsions", :force => true do |t|
+    t.integer  "work_id"
+    t.date     "dwell"
+    t.date     "cnd"
+    t.boolean  "status_dwell"
+    t.boolean  "status_cnd"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -117,42 +131,46 @@ ActiveRecord::Schema.define(:version => 20120324175318) do
 
   create_table "work_documents", :force => true do |t|
     t.integer  "work_id"
+    t.integer  "patent_file_size"
     t.string   "patent_content_type"
     t.datetime "patent_updated_at"
     t.string   "patent_file_name"
-    t.integer  "patent_file_size"
+    t.integer  "enrollment_file_size"
     t.string   "enrollment_content_type"
     t.datetime "enrollment_updated_at"
     t.string   "enrollment_file_name"
-    t.integer  "enrollment_file_size"
+    t.integer  "cei_file_size"
     t.string   "cei_content_type"
     t.datetime "cei_updated_at"
     t.string   "cei_file_name"
-    t.integer  "cei_file_size"
+    t.integer  "gifp_file_size"
     t.string   "gifp_content_type"
     t.datetime "gifp_updated_at"
     t.string   "gifp_file_name"
-    t.integer  "gifp_file_size"
+    t.integer  "invoice_file_size"
     t.string   "invoice_content_type"
     t.datetime "invoice_updated_at"
     t.string   "invoice_file_name"
-    t.integer  "invoice_file_size"
+    t.integer  "inss_file_size"
     t.string   "inss_content_type"
     t.datetime "inss_updated_at"
     t.string   "inss_file_name"
-    t.integer  "inss_file_size"
+    t.integer  "cnd_file_size"
     t.string   "cnd_content_type"
     t.datetime "cnd_updated_at"
     t.string   "cnd_file_name"
-    t.integer  "cnd_file_size"
+    t.integer  "dwell_file_size"
     t.string   "dwell_content_type"
     t.datetime "dwell_updated_at"
     t.string   "dwell_file_name"
-    t.integer  "dwell_file_size"
+    t.integer  "social_contract_file_size"
     t.string   "social_contract_content_type"
     t.datetime "social_contract_updated_at"
     t.string   "social_contract_file_name"
-    t.integer  "social_contract_file_size"
+    t.integer  "avcb_file_size"
+    t.string   "avcb_content_type"
+    t.datetime "avcb_updated_at"
+    t.string   "avcb_file_name"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -160,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20120324175318) do
   add_index "work_documents", ["work_id"], :name => "index_work_documents_on_work_id"
 
   create_table "works", :force => true do |t|
+    t.string   "cei"
     t.string   "name"
     t.string   "address"
     t.string   "number"
@@ -172,6 +191,15 @@ ActiveRecord::Schema.define(:version => 20120324175318) do
     t.string   "contact_email"
     t.string   "contact_telephone"
     t.date     "date_initial"
+    t.date     "issue_date"
+    t.date     "dwell"
+    t.date     "cnd"
+    t.string   "status_dwell"
+    t.string   "status_cnd"
+    t.boolean  "email_dwell_warning",       :default => false
+    t.boolean  "email_cnd_warning",         :default => false
+    t.boolean  "email_dwell",               :default => false
+    t.boolean  "email_cnd",                 :default => false
     t.string   "cost_center"
     t.string   "territorial"
     t.integer  "company_id"
@@ -186,15 +214,20 @@ ActiveRecord::Schema.define(:version => 20120324175318) do
     t.string   "demolition_km"
     t.boolean  "floor_check"
     t.integer  "floor_qtd"
+    t.string   "floor_qtd_km"
     t.integer  "floor_units"
+    t.string   "floor_units_km"
     t.integer  "floor_bathroom"
+    t.string   "floor_bathroom_km"
     t.boolean  "home_check"
     t.integer  "home_club"
+    t.string   "home_club_km"
     t.integer  "home_ordinance"
+    t.string   "home_ordinance_km"
     t.integer  "home_support_ordinance"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
-    t.date     "issue_date"
+    t.string   "home_support_ordinance_km"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
   add_index "works", ["city_id"], :name => "index_works_on_city_id"

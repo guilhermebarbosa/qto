@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
   
     respond_to do |format|
       if @comment.save
+        WorkMailer.new_comment_alert(@comment).deliver
         format.html { redirect_to work_url(@comment.work_id), :notice => 'Comment was successfully created.' }
       else
         format.html { render :action => "new_comment" }
@@ -29,7 +30,9 @@ class CommentsController < ApplicationController
   # PUT /comments/1.json
   def update
     respond_to do |format|
+      @last_comment = Comment.find(params[:id])
       if @comment.update_attributes(params[:comment])
+        WorkMailer.edit_comment_alert(@comment, @last_comment).deliver
         format.html { redirect_to work_url(@comment.work_id), :notice => 'Comment was successfully updated.' }
       else
         format.html { render :action => "edit" }

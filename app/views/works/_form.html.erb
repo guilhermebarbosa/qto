@@ -21,8 +21,14 @@
 		      <% end %>
 		    </div>
 		  <% end %>
+		    <% if current_user.roles[0].name == "Administrador" %>
+		      <p>
+            <%= f.label :cei, "CEI" %><br />
+            <%= f.text_field :cei %>
+          </p>
+        <% end %>
 		    <p>
-          <%= f.label :name, "Nome" %><br />
+          <%= f.label :name, "Obra" %><br />
           <%= f.text_field :name %>
         </p>
         <p>
@@ -93,6 +99,38 @@
           <%= f.label :observation, "Obervação" %><br />
           <%= f.text_area :observation %>
         </p>
+        
+        <% if current_user.roles[0].name == "Administrador" %>
+          <div class="block check">
+          	<div class="block_head">
+          		<div class="bheadl"></div>
+          		<div class="bheadr"></div>
+                <h2>Previsão</h2>  
+              </div>		<!-- .block_head ends -->
+              <div class="block_content">
+                <p>
+                  <%= f.label :dwell, "Previsão Habite-se" %><br />
+                  <%= f.date_select :dwell, :include_blank => "true", :default => "nil" %>
+                </p>
+                <p class="right">
+                  <%= f.label :status_dwell, "Status Habite-se" %><br />
+                  <%= f.select :status_dwell, Work::STATUS_DWELL, :class => "styled"  %>
+                </p>
+                <% if false %>
+                <p>
+                  <%= f.label :cnd, "Previsão CND" %><br />
+                  <%= f.date_select :cnd, :include_blank => "true", :default => "nil" %>
+                </p>
+                <% end %>
+                <p class="right">
+                  <%= f.label :status_cnd, "Status CND" %><br />
+                  <%= f.select :status_cnd, Work::STATUS_CND, :class => "styled" %>
+                </p>
+              </div>		<!-- .block_content ends -->
+            	<div class="bendl"></div>
+            	<div class="bendr"></div>
+          </div>		<!-- .block ends -->
+        <% end %>
     
         <div class="block small left">
         	<div class="block_head">
@@ -167,7 +205,7 @@
                 @floor_style = "none"
               end 
               %>
-              <div class="div_floor_check" style="display:<%=@floor_style%>">
+              <div class="div_floor_check check" style="display:<%=@floor_style%>">
                 <% if !@work.floor_qtd.blank? and !@work.floor_units.blank? and !@work.floor_bathroom.blank? %>
                   <% @floor_qtd_total = @work.floor_qtd * @work.floor_units * @work.floor_bathroom %>
                 <% end %>
@@ -175,13 +213,25 @@
                   <%= f.label :floor_qtd, "Quantidade de Pavimentos" %><br />
                   <%= f.number_field :floor_qtd %>
                 </p>
+                <p class="right">
+                  <%= f.label :floor_qtd_km, "Area" %><br />
+                  <%= f.text_field :floor_qtd_km %>
+                </p>
                 <p>
                   <%= f.label :floor_units, "Quantidade de Unidades" %><br />
                   <%= f.number_field :floor_units %>
                 </p>
+                <p class="right">
+                  <%= f.label :floor_units_km, "Area" %><br />
+                  <%= f.text_field :floor_units_km %>
+                </p>
                 <p>
                   <%= f.label :floor_bathroom, "Banheiros" %><br />
                   <%= f.number_field :floor_bathroom %>
+                </p>
+                <p class="right">
+                  <%= f.label :floor_bathroom_km, "Area" %><br />
+                  <%= f.text_field :floor_bathroom_km %>
                 </p>
                 <p>
                   <%= f.label :floor_qtd_total, "Quantidade Total:" %>
@@ -209,7 +259,7 @@
               <% else %>
                 <% @home_style = "none" %>
               <% end %>
-              <div class="div_home_check" style="display:<%=@home_style%>">
+              <div class="div_home_check check" style="display:<%=@home_style%>">
                 <% if !@work.home_club.blank? and !@work.home_ordinance.blank? and !@work.home_support_ordinance.blank? %>
                   <% @home_qtd_total = @work.home_club + @work.home_ordinance + @work.home_support_ordinance %>
                 <% end %>
@@ -217,13 +267,25 @@
                   <%= f.label :home_club, "Clube" %><br />
                   <%= f.number_field :home_club %>
                 </p>
+                <p class="right">
+                  <%= f.label :home_club_km, "Area" %><br />
+                  <%= f.text_field :home_club_km %>
+                </p>
                 <p>
                   <%= f.label :home_ordinance, "Portaria" %><br />
                   <%= f.number_field :home_ordinance %>
                 </p>
+                <p class="right">
+                  <%= f.label :home_ordinance_km, "Area" %><br />
+                  <%= f.text_field :home_ordinance_km %>
+                </p>
                 <p>
                   <%= f.label :home_support_ordinance, "Suporte a Portaria" %><br />
                   <%= f.number_field :home_support_ordinance %>
+                </p>
+                <p class="right">
+                  <%= f.label :home_support_ordinance_km, "Area" %><br />
+                  <%= f.text_field :home_support_ordinance_km %>
                 </p>
                 <p>
                   <%= f.label :home_qtd_total, "Quantidade Total:" %>
@@ -281,6 +343,10 @@
                  		  <%= document.label :social_contract, "Contrato Social" %><br>
                  		  <%= document.file_field :social_contract, :class =>"file" %> 
                  		</p>
+                 		<p class="fileupload"> 
+                 		  <%= document.label :avcb, "AVCB" %><br>
+                 		  <%= document.file_field :avcb, :class =>"file" %> 
+                 		</p>
                   <% end %>
                 <% end %>
                 
@@ -299,6 +365,7 @@
                         <th>CND</th>
                         <th>Habite-se</th>
                         <th>Contrato Social</th>
+                        <th>AVCB</th>
                       </tr>
                       <%= f.fields_for :work_documents do |document| %>
                           <% if !document.object.new_record? %>
@@ -347,8 +414,12 @@
                               </td>
                               <td>
                               <% if !document.object.social_contract_file_name.blank? %>
-                                <%= document.object.social_contract.check_box :_destroy %>
                                 <%= link_to "Contrato Social", document.object.social_contract.url %>
+                              <% end %>
+                              </td>
+                              <td>
+                              <% if !document.object.avcb_file_name.blank? %>
+                                <%= link_to "AVCB", document.object.avcb.url %>
                               <% end %>
                               </td>
                             </tr>

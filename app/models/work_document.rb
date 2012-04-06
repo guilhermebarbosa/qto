@@ -10,6 +10,7 @@ class WorkDocument < ActiveRecord::Base
   has_attached_file :dwell
   has_attached_file :cnd
   has_attached_file :social_contract
+  has_attached_file :avcb
   
   before_post_process :transliterate_file_name
   
@@ -129,6 +130,19 @@ class WorkDocument < ActiveRecord::Base
       filename.gsub!(/\ +/, '-')
 
       self.social_contract.instance_write(:file_name, "#{filename}.#{extension}")
+    end
+    
+    if !avcb_file_name.blank?
+      extension = File.extname(avcb_file_name).gsub(/^\.+/, '')
+      filename = avcb_file_name.gsub(/\.#{extension}$/, '')
+
+      filename.downcase!
+      filename.gsub!(/'/, '')
+      filename.gsub!(/[^A-Za-z0-9]+/, ' ')
+      filename.strip!
+      filename.gsub!(/\ +/, '-')
+
+      self.avcb.instance_write(:file_name, "#{filename}.#{extension}")
     end
   end
 end

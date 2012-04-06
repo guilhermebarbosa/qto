@@ -15,8 +15,15 @@ gem "will_paginate"
 
 gem 'mail'
 
+gem 'to_xls'
+
+gem 'fastercsv'
+
 gem 'authlogic'
+
 gem "declarative_authorization"
+
+gem 'whenever', :require => false
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 

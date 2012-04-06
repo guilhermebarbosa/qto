@@ -187,7 +187,7 @@ pt-BR:
 
     attributes:
       work:
-        name: "Nome"
+        name: "Obra"
         address: "Endereço"
         number: "Numero"
         adjunct: "Complemento"
@@ -209,11 +209,17 @@ pt-BR:
         demolition_type: "Tipo da Demolição"
         demolition_km: "Metragem da Demolição"
         floor_qtd: "Quantidade de Pavimentos"
+        floor_qtd_km: "Area da Quantidade de Pavimentos"
         floor_units: "Quantidade de Unidades"
+        floor_units_km: "Area da Quantidade de Unidades"
         floor_bathroom: "Banheiros"
+        floor_bathroom_km: "Area dos Banheiros"
         home_ordinance: "Portaria"
+        home_ordinance_km: "Area da Portaria"
         home_support_ordinance: "Suporte a Portaria"
+        home_support_ordinance_km: "Area do Suporte a Portaria"
         home_club: "Clube"
+        home_club_km: "Area do Clube"
       company:
         name: "Nome"
         address: "Endereço"

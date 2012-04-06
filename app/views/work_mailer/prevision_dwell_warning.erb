@@ -1,0 +1,7 @@
+<p>A obra <%= @work.name %> está se aproximando da previsão do Habita-se.</p>
+
+<p>
+  <b>Previsão Habite-se:</b> <%= I18n.l @work.dwell %><br>
+</p>
+
+<p>Para estender a previsão, <%= link_to "clique aqui", edit_work_url(@work) %>.</p>

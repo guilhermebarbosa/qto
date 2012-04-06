@@ -15,7 +15,7 @@
   </p>
   
   <p>
-    <b>Nome:</b>
+    <b>Obra:</b>
     <%= @work.name %>
   </p>
 
@@ -114,6 +114,43 @@
     <%= @work.observation %>
   </p>
   
+  <% if current_user.roles[0].name == "Administrador" %>
+    <div class="block">
+    	<div class="block_head">
+    		<div class="bheadl"></div>
+    		<div class="bheadr"></div>
+          <h2>Previsão</h2>  
+        </div>		<!-- .block_head ends -->
+        <div class="block_content">
+          <p class="left">
+            <b>Previsão Habite-se:</b>
+            <% if @work.dwell.blank? %>
+            <% else %>
+              <%= I18n.l @work.dwell %>
+            <% end %>
+          </p>
+          <p class="right">
+            <b>Status:</b>
+            <%= @work.status_dwell %>
+          </p>
+          <p class="left" style="clear: both">
+            <b>Previsão CND:</b>
+            <% if @work.cnd.blank? %>
+              
+            <% else %>
+              <%= I18n.l @work.cnd %>
+            <% end %>
+          </p>
+          <p class="right">
+            <b>Status:</b>
+            <%= @work.status_cnd %>
+          </p>
+        </div>		<!-- .block_content ends -->
+      	<div class="bendl"></div>
+      	<div class="bendr"></div>
+    </div>		<!-- .block ends -->
+  <% end %>
+  
   <div class="block small left">
   	<div class="block_head">
   		<div class="bheadl"></div>
@@ -193,19 +230,31 @@
   	<div class="block_content">
   	
   	  <% if @work.floor_check == true %>
-        <p>
+        <p class="left">
           <b>Quantidade Pavimentos:</b>
           <%= @work.floor_qtd %>
         </p>
-
-        <p>
-          <b>Quantidade Unidades:</b>
-          <%= @work.floor_units %>
+        <p class="right">
+          <b>Area:</b>
+          <%= @work.floor_qtd_km %>
         </p>
 
-        <p>
+        <p class="left">
+          <b>Quantidade Unidades:</b>
+          <%= @work.floor_qtd %>
+        </p>
+        <p class="right">
+          <b>Area:</b>
+          <%= @work.floor_qtd_km %>
+        </p>
+
+        <p class="left">
           <b>Banheiros:</b>
           <%= @work.floor_bathroom %>
+        </p>
+        <p class="right">
+          <b>Area:</b>
+          <%= @work.floor_bathroom_km %>
         </p>
 
         <p>
@@ -237,19 +286,31 @@
     	<div class="block_content">
 
     	  <% if @work.home_check == true %>
-          <p>
+          <p class="left">
             <b>Clube:</b>
             <%= @work.home_club %>
           </p>
+          <p class="right">
+            <b>Area:</b>
+            <%= @work.home_club_km %>
+          </p>
 
-          <p>
+          <p class="left">
             <b>Suporte a Portaria:</b>
             <%= @work.home_support_ordinance %>
           </p>
+          <p class="right">
+            <b>Area:</b>
+            <%= @work.home_support_ordinance_km %>
+          </p>
           
-          <p>
+          <p class="left">
             <b>Portaria:</b>
             <%= @work.home_ordinance %>
+          </p>
+          <p class="right">
+            <b>Area:</b>
+            <%= @work.home_ordinance_km %>
           </p>
 
           <p>
@@ -295,6 +356,7 @@
               <th>CND</th>
               <th>Habite-se</th>
               <th>Contrato Social</th>
+              <th>AVCB</th>
             </tr>
           <% @work.work_documents.each do |document| %>
               <tr>
@@ -344,6 +406,11 @@
                   <%= link_to "Contrato Social", document.social_contract.url %>
                 <% end %>
                 </td>
+                <td>
+                <% if !document.avcb_file_name.blank? %>
+                  <%= link_to "AVCB", document.avcb.url %> <br>
+                <% end %>
+                </td>
               </tr>
           <% end %>
           </table>
@@ -376,7 +443,7 @@
   	      Nenhum comentario encontrado.
   	    </p>
   	  <% else %>
-  	    <% @work.comments.each do |comment| %>
+  	    <% @work.comments.order("updated_at DESC").each do |comment| %>
   	    
       	    <div class="block">
             	<div class="block_head">
@@ -393,7 +460,7 @@
     	            <b>Descrição:</b>
     	            <%= comment.description %>
     	          </p>
-    	          <% if comment.document == true %>
+    	          <% if !comment.patent_file_name.blank? or !comment.enrollment_file_name.blank? or !comment.cei_file_name.blank? or !comment.gifp_file_name.blank? or !comment.invoice_file_name.blank? or !comment.inss_file_name.blank? or !comment.cnd_file_name.blank? or !comment.dwell_file_name.blank? or !comment.social_contract_file_name.blank? or !comment.avcb_file_name.blank? %>
     	            <b>Documentos:</b>
   	              <table border="0">
                     <tr>
@@ -406,6 +473,7 @@
                       <th>CND</th>
                       <th>Habite-se</th>
                       <th>Contrato Social</th>
+                      <th>AVCB</th>
                     </tr>
                     <tr>
                       <td>
@@ -451,6 +519,11 @@
                       <td>
                       <% if !comment.social_contract_file_name.blank? %>
                         <%= link_to "Contrato Social", comment.social_contract.url %>
+                      <% end %>
+                      </td>
+                      <td>
+                      <% if !comment.avcb_file_name.blank? %>
+                        <%= link_to "AVCB", comment.avcb.url %>
                       <% end %>
                       </td>
                     </tr>

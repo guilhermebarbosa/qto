@@ -1,0 +1,7 @@
+<p>A obra <%= @work.name %> chegou no prazo do CND.</p>
+
+<p>
+  <b>Previsão CND:</b> <%= I18n.l @work.cnd %> <br>
+</p>
+
+<p>Para estender a previsão, <%= link_to "clique aqui", edit_work_url(@work) %>.</p>

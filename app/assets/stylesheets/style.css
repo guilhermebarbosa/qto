@@ -292,6 +292,25 @@ a:hover {
 	float: right;
 	}
 	
+.block .block_content div.check p{
+	float: left;
+	width: 315px;
+}
+
+.block .block_content div.check p input{
+	float: left;
+	width: 170px;
+}
+
+.block .block_content div.check p.right {
+	width: 180px;
+	clear: none;
+}
+
+.block .block_content div.check p.right input{
+	width: 170px;
+}
+	
 
 /* Block head */
 
@@ -413,6 +432,17 @@ a:hover {
 	color: #666;
 	margin-bottom: 5px;
 	}
+
+.block .block_content p.left {
+	float: left;
+	width: 250px;
+}
+
+.block .block_content p.right {
+	float: left;
+	width: 245px;
+	clear: none;
+}
 	
 .block table {
 	text-align: left;
@@ -706,6 +736,12 @@ a:hover {
 	width: 360px;
 	float: left;
 	clear: none;
+}
+.block form.search p select {
+	width: 224px;
+}
+.block form.search p select.data {
+	width: auto;
 }
 .block form.search p.submit {
 	clear: both;

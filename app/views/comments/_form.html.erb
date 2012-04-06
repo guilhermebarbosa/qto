@@ -10,25 +10,16 @@
 	<div class="block_content">
 
     <%= form_for(@comment, :html => { :multipart => true })  do |f| %>
-      <%= @comment.document %>
-      <%
-      if @comment.document == true
-        @document_style = "block"
-      else
-        @document_style = "none"
-      end 
-      %>
-  
       <%= f.hidden_field :work_id %>
       <p>
         <%= f.label :document, "Descrição" %>
         <%= f.text_area "description" %>
       </p>
       <p>
-        <%= f.check_box "document" %>
+        <%= f.check_box "document", :checked => false %>
         <%= f.label :document, "Inserir Documento?" %>
       </p>
-      <div class="div_document_check" style="display:<%= @document_style %>">
+      <div class="div_document_check" style="display:none">
         <p class="fileupload"> 
        		<%= f.label :patent, "Alvará" %><br>
      		  <%= f.file_field :patent, :class =>"file" %> 
@@ -64,6 +55,10 @@
      		<p class="fileupload"> 
      		  <%= f.label :social_contract, "Contrato Social" %><br>
      		  <%= f.file_field :social_contract, :class =>"file" %> 
+     		</p>
+     		<p class="fileupload"> 
+     		  <%= f.label :avcb, "AVCB" %><br>
+     		  <%= f.file_field :avcb, :class =>"file" %> 
      		</p>
       </div>
 
