@@ -12,7 +12,7 @@
 		<%= form_for @user_session, :url => { :action => "create" } do |f| %>
 		  <% if @user_session.errors.any? %>
 		    <div class="message errormsg">
-		      <p>Não foi possível salvar devido aos seguintes erros:</p>
+		      <p>Não foi possível acessar devido aos seguintes erros:</p>
 		
 		      <% @user_session.errors.full_messages.each do |msg| %>
 		        <p><%= msg %></p>

@@ -11,6 +11,7 @@ class Comment < ActiveRecord::Base
   has_attached_file :dwell
   has_attached_file :cnd
   has_attached_file :social_contract
+  has_attached_file :avcb
   
   before_post_process :transliterate_file_name
   

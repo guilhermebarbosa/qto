@@ -1,4 +1,4 @@
-<p>O(A) usuário(a) inseriu um novo comentário.</p>
+<p>O(A) usuário(a) <%= @comment.user.name %> inseriu um novo comentário.</p>
 
 <p>
   <%= @comment.user.name %>, <%= I18n.l @comment.updated_at %>  <br>
