@@ -19,12 +19,14 @@ class Work < ActiveRecord::Base
   
   private
     def update_prevision_email
-      @work_last = Work.find(self.id)
-      if !self.dwell.blank? and @work_last.dwell != self.dwell
-        self.email_dwell_warning = "0"
-        self.email_dwell = "0"
-        self.email_cnd_warning = "0"
-        self.email_cnd = "0"
+      if !self.id.blank?
+        @work_last = Work.find(self.id)
+        if !self.dwell.blank? and @work_last.dwell != self.dwell
+          self.email_dwell_warning = "0"
+          self.email_dwell = "0"
+          self.email_cnd_warning = "0"
+          self.email_cnd = "0"
+        end
       end
     end
     def update_prevision_cnd

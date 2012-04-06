@@ -9,6 +9,7 @@ Obras::Application.routes.draw do
   get "users/edit_profile/:id" => "users#edit_profile", :as => "edit_profile"
   
   match 'works/update_city_select/:id' => 'works#update_city_select'
+  
   match 'cron_mail/send_prevision_email' => 'cron_mail#send_prevision_email'
   
   match 'comments/new_comment/:work_id' => 'comments#new_comment', :as => "new_comment_work"

@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class WorksController < ApplicationController
   
   filter_resource_access
-  filter_access_to :update_city_select, :send_prevision_email
+  filter_access_to :update_city_select
   
   before_filter :load_page
   before_filter [:load_states], :only=>[:new,:edit, :create, :update]
@@ -64,10 +64,6 @@ class WorksController < ApplicationController
   # POST /works.json
   def create
     @work.user_id = current_user.id
-    
-    if !@work.dwell.blank?
-      @work.cnd = @work.dwell + 1.months
-    end
 
     respond_to do |format|
       if @work.save
