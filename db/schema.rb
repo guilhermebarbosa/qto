@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120404151211) do
+ActiveRecord::Schema.define(:version => 20120324182229) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "user_id"
@@ -36,46 +36,46 @@ ActiveRecord::Schema.define(:version => 20120404151211) do
     t.integer  "work_id"
     t.text     "description"
     t.boolean  "document"
-    t.integer  "patent_file_size"
     t.string   "patent_content_type"
     t.datetime "patent_updated_at"
     t.string   "patent_file_name"
-    t.integer  "enrollment_file_size"
+    t.integer  "patent_file_size"
     t.string   "enrollment_content_type"
     t.datetime "enrollment_updated_at"
     t.string   "enrollment_file_name"
-    t.integer  "cei_file_size"
+    t.integer  "enrollment_file_size"
     t.string   "cei_content_type"
     t.datetime "cei_updated_at"
     t.string   "cei_file_name"
-    t.integer  "gifp_file_size"
+    t.integer  "cei_file_size"
     t.string   "gifp_content_type"
     t.datetime "gifp_updated_at"
     t.string   "gifp_file_name"
-    t.integer  "invoice_file_size"
+    t.integer  "gifp_file_size"
     t.string   "invoice_content_type"
     t.datetime "invoice_updated_at"
     t.string   "invoice_file_name"
-    t.integer  "inss_file_size"
+    t.integer  "invoice_file_size"
     t.string   "inss_content_type"
     t.datetime "inss_updated_at"
     t.string   "inss_file_name"
-    t.integer  "cnd_file_size"
+    t.integer  "inss_file_size"
     t.string   "cnd_content_type"
     t.datetime "cnd_updated_at"
     t.string   "cnd_file_name"
-    t.integer  "dwell_file_size"
+    t.integer  "cnd_file_size"
     t.string   "dwell_content_type"
     t.datetime "dwell_updated_at"
     t.string   "dwell_file_name"
-    t.integer  "social_contract_file_size"
+    t.integer  "dwell_file_size"
     t.string   "social_contract_content_type"
     t.datetime "social_contract_updated_at"
     t.string   "social_contract_file_name"
-    t.integer  "avcb_file_size"
+    t.integer  "social_contract_file_size"
     t.string   "avcb_content_type"
     t.datetime "avcb_updated_at"
     t.string   "avcb_file_name"
+    t.integer  "avcb_file_size"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
@@ -89,16 +89,6 @@ ActiveRecord::Schema.define(:version => 20120404151211) do
     t.string   "cnpj"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "previsions", :force => true do |t|
-    t.integer  "work_id"
-    t.date     "dwell"
-    t.date     "cnd"
-    t.boolean  "status_dwell"
-    t.boolean  "status_cnd"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -131,46 +121,46 @@ ActiveRecord::Schema.define(:version => 20120404151211) do
 
   create_table "work_documents", :force => true do |t|
     t.integer  "work_id"
-    t.integer  "patent_file_size"
     t.string   "patent_content_type"
     t.datetime "patent_updated_at"
     t.string   "patent_file_name"
-    t.integer  "enrollment_file_size"
+    t.integer  "patent_file_size"
     t.string   "enrollment_content_type"
     t.datetime "enrollment_updated_at"
     t.string   "enrollment_file_name"
-    t.integer  "cei_file_size"
+    t.integer  "enrollment_file_size"
     t.string   "cei_content_type"
     t.datetime "cei_updated_at"
     t.string   "cei_file_name"
-    t.integer  "gifp_file_size"
+    t.integer  "cei_file_size"
     t.string   "gifp_content_type"
     t.datetime "gifp_updated_at"
     t.string   "gifp_file_name"
-    t.integer  "invoice_file_size"
+    t.integer  "gifp_file_size"
     t.string   "invoice_content_type"
     t.datetime "invoice_updated_at"
     t.string   "invoice_file_name"
-    t.integer  "inss_file_size"
+    t.integer  "invoice_file_size"
     t.string   "inss_content_type"
     t.datetime "inss_updated_at"
     t.string   "inss_file_name"
-    t.integer  "cnd_file_size"
+    t.integer  "inss_file_size"
     t.string   "cnd_content_type"
     t.datetime "cnd_updated_at"
     t.string   "cnd_file_name"
-    t.integer  "dwell_file_size"
+    t.integer  "cnd_file_size"
     t.string   "dwell_content_type"
     t.datetime "dwell_updated_at"
     t.string   "dwell_file_name"
-    t.integer  "social_contract_file_size"
+    t.integer  "dwell_file_size"
     t.string   "social_contract_content_type"
     t.datetime "social_contract_updated_at"
     t.string   "social_contract_file_name"
-    t.integer  "avcb_file_size"
+    t.integer  "social_contract_file_size"
     t.string   "avcb_content_type"
     t.datetime "avcb_updated_at"
     t.string   "avcb_file_name"
+    t.integer  "avcb_file_size"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end

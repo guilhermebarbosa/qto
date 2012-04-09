@@ -42,4 +42,90 @@ class Work < ActiveRecord::Base
   validates :demolition_type, :demolition_km, :presence => true, :if => Proc.new {|c| not c.demolition_check.blank? }
   validates :floor_qtd, :floor_qtd_km, :floor_units, :floor_units_km, :floor_bathroom, :floor_bathroom_km, :presence => true, :if => Proc.new {|c| not c.floor_check.blank? }
   validates :home_club, :home_club_km, :home_ordinance, :home_ordinance_km, :home_support_ordinance, :home_support_ordinance_km, :presence => true, :if => Proc.new {|c| not c.home_check.blank? }
+
+  def self.send_prevision_email
+    @works = Work.select("
+      id,
+      name,
+      DATE(dwell),
+      DATE(cnd),
+      DATEDIFF(dwell, NOW()) as dwell_dif,
+      DATEDIFF(cnd, NOW()) as cnd_dif,
+      email_dwell_warning,
+      email_dwell,
+      email_cnd_warning,
+      email_cnd
+    ").where("
+      (
+    		email_dwell_warning = '0'
+    	and
+    		status_dwell = 'Pendente'
+    	and
+    		DATEDIFF(dwell, NOW()) <= 10
+    	)
+    	OR
+    	(
+    		email_cnd_warning = '0'
+    	and
+    		status_cnd = 'Pendente'
+    	and
+    		DATEDIFF(cnd, NOW()) <= 10
+    	)
+    	OR
+    	(
+    		email_dwell_warning = '1'
+    	and
+    		email_dwell = '0'
+    	and
+    		status_dwell = 'Pendente'
+    	and
+    		dwell <= NOW()
+    	)
+    	OR
+    	(
+    		email_cnd_warning = '1'
+    	and
+    		email_cnd = '0'
+    	and
+    		status_cnd = 'Pendente'
+    	and
+    		cnd <= NOW()
+    	)
+    ")
+    
+    @works.each do |work|
+      
+      @work = Work.find(work.id)
+      
+      # ENVIA O EMAIL QUANDO O HABITE-SE ESTA SE APROXIMANDO DA DATA DA PREVISÃO
+      if work.email_dwell_warning == false
+        
+        @work.email_dwell_warning = "1"
+        WorkMailer.prevision_dwell_warning(work).deliver
+      
+      # ENVIA O EMAIL QUANDO O HABITE-SE ESTA NA MESMA DATA DA PREVISÃO  
+      elsif work.email_dwell_warning == true and work.email_dwell == false
+        
+        @work.email_dwell = "1"
+        WorkMailer.prevision_dwell(work).deliver
+      
+      # ENVIA O EMAIL QUANDO O CND ESTA SE APROXIMANDO DA DATA DA PREVISÃO
+      elsif work.email_dwell_warning == true and work.email_dwell == true and work.email_cnd_warning == false
+        
+        @work.email_cnd_warning = '1'
+        WorkMailer.prevision_cnd_warning(work).deliver
+        
+      # ENVIA O EMAIL QUANDO O CND ESTA NA MESMA DATA DA PREVISÃO  
+      elsif work.email_dwell_warning == true and work.email_dwell == true  and work.email_cnd_warning == true and work.email_cnd == false
+        
+        @work.email_cnd = '1'
+        WorkMailer.prevision_cnd(work).deliver
+      
+      end
+      
+      @work.save
+      
+    end
+  end
+
 end

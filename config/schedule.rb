@@ -1,3 +1,3 @@
-every 2.minutes do 
-  runner "CronMail.send_prevision_email"
+every 1.minutes do
+  runner "Work.send_prevision_email"
 end
